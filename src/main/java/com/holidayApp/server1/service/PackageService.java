@@ -73,4 +73,13 @@ public class PackageService {
 
         return packages;
     }
+
+    public Package getPackageDetail(String packageId){
+        Package packageData =  packageRepository.findById(Integer.parseInt(packageId)).orElseThrow(null);
+
+        packageData.setVendorId(packageData.getUser().getId());
+        packageData.setUser(null);
+
+        return packageData;
+    }
 }
