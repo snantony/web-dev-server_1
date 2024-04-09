@@ -7,6 +7,8 @@ import com.holidayApp.server1.repository.UserRepository;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PackageService {
 
@@ -51,5 +53,24 @@ public class PackageService {
         packageRepository.save(pack);
 
         return true;
+    }
+
+    public List<Package> getPackagesByVendor(String authorizationHeader){
+        String token = jwtService.getToken(authorizationHeader);
+
+        String email = jwtService.extractEmail(token);
+
+        return  packageRepository.findAllByVendorEmail(email);
+    }
+
+    public List<Package> findAllPackages() {
+        List<Package> packages = packageRepository.findAll();
+
+        for (Package pack : packages) {
+            pack.setVendorId(pack.getUser().getId());
+            pack.setUser(null);
+        }
+
+        return packages;
     }
 }

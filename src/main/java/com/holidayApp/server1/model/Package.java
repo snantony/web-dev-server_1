@@ -1,5 +1,6 @@
 package com.holidayApp.server1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +24,9 @@ public class Package {
     @ManyToOne
     @JoinColumn(name = "vendor_id")
     private User user;
+
+    @Transient
+    private int vendorId;
 
     public Integer getId() {
         return id;
@@ -62,5 +66,13 @@ public class Package {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getVendorId() {
+        return vendorId;
+    }
+
+    public void setVendorId(int vendorId) {
+        this.vendorId = vendorId;
     }
 }

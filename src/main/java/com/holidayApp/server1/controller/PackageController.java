@@ -5,8 +5,10 @@ import com.holidayApp.server1.service.PackageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/vendor/package")
+@RequestMapping("/api/package")
 public class PackageController {
 
     private final PackageService packageService;
@@ -23,5 +25,10 @@ public class PackageController {
         }
 
         return ResponseEntity.ok("Package added successfully.");
+    }
+
+    @GetMapping("/get")
+    public List<Package> getPackages(){
+        return packageService.findAllPackages();
     }
 }
