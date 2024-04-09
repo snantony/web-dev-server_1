@@ -22,9 +22,6 @@ public class VendorController {
 
     @GetMapping("/get/{vendorId}")
     public ResponseEntity<User> getVendor(@PathVariable("vendorId") String vendorId){
-        byte[] decodedBytes = Base64.getDecoder().decode(vendorId);
-        String decodedId = new String(decodedBytes);
-
-        return ResponseEntity.ok(vendorService.getVendorDetail(decodedId));
+        return ResponseEntity.ok(vendorService.getVendorDetail(vendorId));
     }
 }

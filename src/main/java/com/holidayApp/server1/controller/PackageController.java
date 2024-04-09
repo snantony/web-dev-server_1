@@ -35,8 +35,6 @@ public class PackageController {
 
     @GetMapping("/get-package/{packageId}")
     public ResponseEntity<Package> getPackageDetails(@PathVariable("packageId") String packageId) {
-        byte[] decodedBytes = Base64.getDecoder().decode(packageId);
-        String decodedId = new String(decodedBytes);
-        return ResponseEntity.ok(packageService.getPackageDetail(decodedId));
+        return ResponseEntity.ok(packageService.getPackageDetail(packageId));
     }
 }
